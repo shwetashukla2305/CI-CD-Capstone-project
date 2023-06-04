@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sim-activation
+  name: sim-activation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sim-activation
+  template:
+    metadata:
+      labels:
+        io.kompose.network/probable-tribble-default: "true"
+        app: sim-activation
+    spec:
+      containers:
+        - image: probable-tribble_sim-activation
+          name: sim-activation-container
+          ports:
+            - containerPort: 8081
+          tty: true
+      restartPolicy: Always
