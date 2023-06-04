@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mysqlservice
+  name: mysqlservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     app: mysqlservice
+  template:
+    metadata:
+      labels:
+        io.kompose.network/probable-tribble-default: "true"
+        app: mysqlservice
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
+              value: "yes"
+            - name: MYSQL_DATABASE
+              value: SIMDetails
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+            - name: MYSQL_USERNAME
+              value: root
+          image: mysql
+          name: mysql-container
+          ports:
+            - containerPort: 3306
+      restartPolicy: Always
