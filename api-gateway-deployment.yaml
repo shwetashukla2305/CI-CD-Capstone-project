@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-gateway
+  name: api-gateway
+root@ip-172-31-18-84:~/probable-tribble# 
+root@ip-172-31-18-84:~/probable-tribble# cat api-gateway-deployment.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-gateway
+  name: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        io.kompose.network/probable-tribble-default: "true"
+        app: api-gateway
+    spec:
+      containers:
+        - image: probable-tribble_api-gateway
+          name: api-gateway-container
+          ports:
+            - containerPort: 8079
+          tty: true
+      restartPolicy: Always
