@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user-validation
+  name: user-validation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-validation
+  template:
+    metadata:
+      labels:
+        io.kompose.network/probable-tribble-default: "true"
+        app: user-validation
+    spec:
+      containers:
+        - image: probable-tribble_user-validation
+          name: user-validation-container
+          ports:
+            - containerPort: 8082
+          tty: true
+      restartPolicy: Always
